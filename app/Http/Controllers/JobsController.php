@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Job\JobCreatedEvent;
+use App\Events\Job\JobDeletedEvent;
+use App\Events\Job\JobUpdatedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use Illuminate\Http\Request;
@@ -33,6 +36,8 @@ class JobsController extends Controller
 
         $job->save();
 
+        app('events')->dispatch(new JobCreatedEvent($job));
+
         return response()->json($job, 201);
     }
 
@@ -48,6 +53,8 @@ class JobsController extends Controller
 
         $job->save();
 
+        app('events')->dispatch(new JobUpdatedEvent($job));
+
         return response()->json($job);
     }
 
@@ -60,6 +67,8 @@ class JobsController extends Controller
         }
 
         $job->delete();
+
+        app('events')->dispatch(new JobDeletedEvent($job));
 
         return response()->json($job);
     }

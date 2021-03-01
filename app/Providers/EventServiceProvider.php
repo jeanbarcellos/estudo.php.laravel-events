@@ -5,7 +5,12 @@ namespace App\Providers;
 use App\Events\Company\CompanyCreatedEvent;
 use App\Events\Company\CompanyDeletedEvent;
 use App\Events\Company\CompanyUpdatedEvent;
+use App\Events\Job\JobCreatedEvent;
+use App\Events\Job\JobDeletedEvent;
+use App\Events\Job\JobUpdatedEvent;
+use App\Listeners\CompanyEventSubscriber;
 use App\Listeners\CompanyListener;
+use App\Listeners\JobListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -29,9 +34,13 @@ class EventServiceProvider extends ServiceProvider
         // ],
 
         // # FORMA 3 - Criação de uma clases com diversos manipuladores (métodos)
-        CompanyCreatedEvent::class => [[CompanyListener::class, 'handleCreated']],
-        CompanyUpdatedEvent::class => [[CompanyListener::class, 'handleUpdated']],
-        CompanyDeletedEvent::class => [[CompanyListener::class, 'handleDeleted']],
+        // CompanyCreatedEvent::class => [[CompanyListener::class, 'handleCreated']],
+        // CompanyUpdatedEvent::class => [[CompanyListener::class, 'handleUpdated']],
+        // CompanyDeletedEvent::class => [[CompanyListener::class, 'handleDeleted']],
+
+        JobCreatedEvent::class => [[JobListener::class, 'handleCreated']],
+        JobUpdatedEvent::class => [[JobListener::class, 'handleUpdated']],
+        JobDeletedEvent::class => [[JobListener::class, 'handleDeleted']],
 
     ];
 
@@ -41,8 +50,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $subscribe = [
-        // # FORMA 1 - Docuemntação do Laravel
-        // CompanyEventSubscriber::class,
+        # FORMA 1 - Docuemntação do Laravel
+        CompanyEventSubscriber::class,
     ];
 
     /**
