@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\CompanyEventSubscriber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Event;
 class EventServiceProvider extends ServiceProvider
 {
     /**
-     * The event listener mappings for the application.
+     * Os mapeamentos de ouvinte de evento para o aplicativo.
      *
      * @var array
      */
@@ -21,7 +22,17 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
-     * Register any events for your application.
+     * As classes de assinantes a serem registradas.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        // # FORMA 1 - Docuemntação do Laravel
+        CompanyEventSubscriber::class,
+    ];
+
+    /**
+     * Registre quaisquer eventos para o seu aplicativo.
      *
      * @return void
      */
