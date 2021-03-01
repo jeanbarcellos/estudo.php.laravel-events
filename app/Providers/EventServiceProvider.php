@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\Company\CompanyCreatedEvent;
-use App\Listeners\CompanyCreatedListener;
+use App\Events\Company\CompanyDeletedEvent;
+use App\Events\Company\CompanyUpdatedEvent;
+use App\Listeners\CompanyListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,9 +24,14 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         // # FORMA 2 - Criação de um único manipulador para cada evento
-        CompanyCreatedEvent::class => [
-            CompanyCreatedListener::class,
-        ],
+        // CompanyCreatedEvent::class => [
+        //     CompanyCreatedListener::class,
+        // ],
+
+        // # FORMA 3 - Criação de uma clases com diversos manipuladores (métodos)
+        CompanyCreatedEvent::class => [[CompanyListener::class, 'handleCreated']],
+        CompanyUpdatedEvent::class => [[CompanyListener::class, 'handleUpdated']],
+        CompanyDeletedEvent::class => [[CompanyListener::class, 'handleDeleted']],
 
     ];
 
