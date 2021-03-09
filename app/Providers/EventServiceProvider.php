@@ -29,15 +29,14 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         // # FORMA 2 - Criação de um único manipulador para cada evento
-        // CompanyCreatedEvent::class => [
-        //     CompanyCreatedListener::class,
-        // ],
+        CompanyCreatedEvent::class => [
+            CompanyCreatedListener::class,
+        ],
 
         // # FORMA 3 - Criação de uma clases com diversos manipuladores (métodos)
         // CompanyCreatedEvent::class => [[CompanyListener::class, 'handleCreated']],
         // CompanyUpdatedEvent::class => [[CompanyListener::class, 'handleUpdated']],
         // CompanyDeletedEvent::class => [[CompanyListener::class, 'handleDeleted']],
-
         JobCreatedEvent::class => [[JobListener::class, 'handleCreated']],
         JobUpdatedEvent::class => [[JobListener::class, 'handleUpdated']],
         JobDeletedEvent::class => [[JobListener::class, 'handleDeleted']],
